@@ -7,20 +7,84 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: rgb(27, 18, 128);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 24px;
+            padding-left: 15px;
+            color:#ffffff;
+        }
+        .header img {
+            width: 80px;
+            max-width: 100%;
+            height: auto;
+        }
+        .nav-menu {
+            background-color: rgb(27, 18, 128);
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .nav-menu a {
+            color: #ffffff;
+            margin-left: 20px;
+            padding-right: 30px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        .nav-menu a:hover {
+             background-color: rgb(27, 18, 128);
         }
         #postForm {
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
             margin-bottom: 20px;
+            background-color: #ffffff; /* 흰색 배경 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+            color: black;
+            padding : 20px;
+            width: 100%;
         }
         .post {
             border: 1px solid #ccc;
             padding: 10px;
             margin-bottom: 10px;
             position: relative;
+            color:#ffffff;
+            background-color: rgb(27, 18, 128);
         }
-        .buttons {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        /* 입력 필드 포커스 시 효과 */
+        #postTitle:focus,
+        #postContent:focus,
+        #postImage:focus {
+            border-color: #4A90E2;
+            box-shadow: 0px 0px 5px rgba(74, 144, 226, 0.5);
+            outline: none;
+        }
+        /* 버튼 스타일 */
+        #postForm button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #4A90E2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        /* 버튼 호버 효과 */
+        #postForm button[type="submit"]:hover {
+            background-color: #357ABD;
         }
         .buttons button {
             margin-left: 5px;
@@ -43,7 +107,16 @@
     </style>
 </head>
 <body>
-    <h1>나의 기록</h1>
+    <header class = "header">
+        <h1>나의 기록</h1>
+        <img src="/database/img/song1-removebg-preview (1).png" alt="눈송이">
+    </header>
+    <nav class = "nav-menu">
+        <div class="menu-item" style="position: relative"></div>
+            <a href="home.html">HOME</a>
+        </div>
+    </nav>
+    
     <form id="postForm">
         <input type="text" id="postTitle" placeholder="제목을 입력하세요"><br><br>
         <textarea id="postContent" rows="4" cols="50" placeholder="내용을 입력하세요"></textarea><br><br>

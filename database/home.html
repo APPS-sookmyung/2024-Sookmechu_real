@@ -103,7 +103,7 @@
 <body>
     <header class="header">
         <h1>숙메추real</h1>
-        <img src="/database/img/song1-removebg-preview (1).png" alt="눈송이">
+        <img src="/database/img/song.png" alt="눈송이">
     </header>
     <nav class="nav-menu">
         <div id="random-food">
@@ -140,13 +140,12 @@
         document.addEventListener("DOMContentLoaded", loadItems);
 
         function generateRandomFood() {
-            const foodList = ["루다 브레드", "청파동커피", "포36거리", "마돈나", "쎄라비", "메르시", "아리랑", "빨봉분식", "샐러디", "본솔커피", "고씨네", "일미오", "몬스터플레이스", "위드달걀빵", "리또리또", "라사천마라탕", "미스터카츠", "또와또", "숙대소반", "감래", "베라", "마시앤바시", "긴자료코", "홍곱창", "타코비", "와플하우스", "갯마을칼국수", "어바웃샤브", "알촌", " 경성돈까스", "신머이쌀국수", "작은도쿄", "가문의 우동", "달볶이", "띵동와플", "효이다방", "브루다", "너드커피", "탕화쿵푸" ,"포라임", "행복은간장밥", "음식미담", "숙대앞맛있는샌드위치", "마라명가", "을의 커피", "봉구스", "이삭", "피굽남피자", "스타벅스", "구이마당", "네코노스시", "피자보이시나", "청파맨션", "정", "행복한 떡집", "ASAP", "프랭크버거", "서브웨이", "두끼", "카페코지", "왈가닥", "만나칼국수", "몽소", "말죽거리 꽈배기", "비일", "베나레스", "까치네", "신내떡", "쿳사", "밥때"];
+            const foodList = ["루다 브레드", "청파동커피", "포36거리", "마돈나", "쎄라비", "아리랑", "빨봉분식", "샐러디", "본솔커피", "고씨네", "일미오", "몬스터플레이스", "위드달걀빵", "리또리또", "라사천마라탕", "미스터카츠", "또와또", "숙대소반", "베라", "마시앤바시", "긴자료코", "홍곱창", "타코비", "와플하우스", "어바웃샤브", "알촌", "신머이쌀국수", "작은도쿄", "달볶이", "띵동와플", "묘약카페", "브루다", "너드커피", "탕화쿵푸" ,"포라임", "행복은간장밥", "마라명가", "을의 커피", "봉구스", "이삭", "피굽남피자", "스타벅스", "구이마당", "네코노스시", "피자보이시나", "청파맨션", "정", "행복한 떡집", "ASAP", "프랭크버거", "서브웨이", "두끼", "만나칼국수", "몽소", "말죽거리 꽈배기", "비일", "베나레스", "까치네", "신내떡", "밥때"];
             
             const randomFood = foodList[Math.floor(Math.random() * foodList.length)];
             
             document.getElementById("random-food_item").innerText = randomFood;
         }
-
         function addItem() {
             const newItem = document.getElementById('new-item').value;
             if (newItem.trim() !== "") {
@@ -154,6 +153,7 @@
                 li.innerText = newItem;
                 li.appendChild(createDeleteButton());
                 document.getElementById('item-list').appendChild(li);
+                saveItem(newItem);  // 로컬 스토리지에 항목 저장
                 document.getElementById('new-item').value = '';
             }
         }
@@ -161,17 +161,21 @@
         function createDeleteButton() {
             const deleteBtn = document.createElement('button');
             deleteBtn.innerText = 'Delete';
-            deleteBtn.style.backgroundColor = 'green';  // 초록색 삭제 버튼
-            deleteBtn.style.color = 'white';  // 글자 색은 흰색
-            deleteBtn.style.border = 'none';  // 테두리 제거
-            deleteBtn.style.borderRadius = '8px';  // 둥근 모서리
-            deleteBtn.style.padding = '5px 10px';  // 버튼 패딩
+            deleteBtn.style.backgroundColor = 'green';  
+            deleteBtn.style.color = 'white';  
+            deleteBtn.style.border = 'none';  
+            deleteBtn.style.borderRadius = '8px';  
+            deleteBtn.style.padding = '5px 10px';  
             deleteBtn.onclick = function() {
                 const li = this.parentElement;
+                const itemText = li.innerText.replace('Delete', '').trim();
+                removeItem(itemText);  // 로컬 스토리지에서 항목 삭제
                 li.parentElement.removeChild(li);
             };
             return deleteBtn;
         }
+
+
 
         // 추가 버튼 스타일 변경
         const addButton = document.querySelector('button[onclick="addItem()"]');
