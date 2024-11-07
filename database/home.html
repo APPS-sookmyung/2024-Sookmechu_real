@@ -6,12 +6,12 @@
     <title>Home</title>
     <style>
         body {
-            color: #ffffff;
+            color: white;
             margin: 0;
             padding: 0;
         }
         .header {
-            background-color: rgb(27, 18, 128);
+            background-color: rgb(38, 75, 155);
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -19,12 +19,12 @@
             padding-left: 15px;
         }
         .header img {
-            width: 80px;
+            width: 100px;
             max-width: 100%;
             height: auto;
         }
         .nav-menu {
-            background-color: rgb(27, 18, 128);
+            background-color: rgb(38, 75, 155);
             display: flex;
             justify-content: space-between;
             padding: 10px 20px;
@@ -32,15 +32,28 @@
             margin-bottom: 30px;
         }
         .nav-menu a {
-            color: #ffffff;
+            color: white;
             margin-left: 20px;
             padding-right: 30px;
             font-size: 20px;
             text-decoration: none;
         }
         .nav-menu a:hover {
-             background-color: rgb(27, 18, 128);
+             background-color: rgb(38, 75, 155);;
         }
+        .to-eat-list-header {
+            display: flex;
+            align-items: center; /* 세로 가운데 정렬 */
+        }
+
+        .to-eat-list-header img {
+            margin-right: 10px; /* 이미지와 제목 사이 여백 */
+            width: 100px;
+            max-width: 100%;
+            height: 40px;
+            width: 40px;
+        }
+
         .body-content {
             display: flex;
             flex-direction: row;
@@ -53,8 +66,9 @@
             justify-content: center; /* 가로 중앙 정렬 */
             align-items: center; /* 세로 중앙 정렬 (필요에 따라 적용) */
             padding: 1rem;
-            background-color: rgb(27, 18, 128);
+            background-color: white;
             flex: 1;
+            background-color: #e3f2fd;
         }
 
         .map-content img {
@@ -64,7 +78,7 @@
         }
         /* To eat list를 가로로 배치 */
         .to-eat-list-container {
-            background-color: rgb(27, 18, 128); /* 기존 파란 배경 */
+            background-color: white; /* 기존 파란 배경 */
             padding: 70px;
             display: flex;
             justify-content: center;
@@ -78,6 +92,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
             color: black;
             width: 100%;
+            border: 2px solid black; /* 흰색 2px 테두리 추가 */
         }
 
         .to-eat-list-container input, 
@@ -98,12 +113,19 @@
         .to-eat-list-container li button {
             margin-left: 5px;
         }
+        .footer {
+            background-color: rgb(38, 75, 155);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <header class="header">
         <h1>숙메추real</h1>
-        <img src="/database/img/song.png" alt="눈송이">
+        <img src="/database/img/snow.png" alt="눈송이">
     </header>
     <nav class="nav-menu">
         <div id="random-food">
@@ -119,23 +141,29 @@
     <!-- To eat list를 메뉴 아래 가로로 배치 -->
     <div class="to-eat-list-container">
         <div class="to-eat-list-inner">
-            <h2>To eat list</h2>
+            <div class="to-eat-list-header">
+                <img src="/database/img/egg_1.png" alt="계란 이미지">
+                <h2>To eat list</h2>
+            </div>
             <input type="text" id="new-item" placeholder="음식 추가">
             <button onclick="addItem()">추가</button>
             <ul id="item-list"></ul>
         </div>
     </div>
-    
 
     <div class="body-content">
         <div class="map-content">
             <img src="/database/img/map.jpg" alt="숙대맛집 지도" usemap="#map" onclick="showCoords(event)">
             <map name="map">
-                <area shape="rect" coords="410,14.6875,573,44" href="/database/ludabread_c.html" alt="Luda Bread">
+                <area shape="rect" coords="300,11,418,33" href="/database/ludabread.html" alt="ludabread">
+                <area shape="rect" coords="300,55,412,81" href="/database/chungpadong.html" alt="chungpadongcoffee">
+                <area shape="rect" coords="310,99,404,120" href="/database/podon.html" alt="podon">
             </map>
         </div>
     </div>
-
+    <footer class="footer">
+        <p>Copyright 유하연 &nbsp;&nbsp;&nbsp;&nbsp;주소 서울특별시 용산구 청파로47길 100</p>
+    </footer>
     <script>
         document.addEventListener("DOMContentLoaded", loadItems);
 
@@ -150,6 +178,7 @@
             const newItem = document.getElementById('new-item').value;
             if (newItem.trim() !== "") {
                 const li = document.createElement('li');
+                
                 li.innerText = newItem;
                 li.appendChild(createDeleteButton());
                 document.getElementById('item-list').appendChild(li);
@@ -161,7 +190,7 @@
         function createDeleteButton() {
             const deleteBtn = document.createElement('button');
             deleteBtn.innerText = 'Delete';
-            deleteBtn.style.backgroundColor = 'green';  
+            deleteBtn.style.backgroundColor = 'red';  
             deleteBtn.style.color = 'white';  
             deleteBtn.style.border = 'none';  
             deleteBtn.style.borderRadius = '8px';  
@@ -179,7 +208,7 @@
 
         // 추가 버튼 스타일 변경
         const addButton = document.querySelector('button[onclick="addItem()"]');
-        addButton.style.backgroundColor = 'red';  // 빨간색 추가 버튼
+        addButton.style.backgroundColor = 'rgb(27, 18, 128)';  // 빨간색 추가 버튼
         addButton.style.color = 'white';  // 글자 색은 흰색
         addButton.style.border = 'none';  // 테두리 제거
         addButton.style.borderRadius = '8px';  // 둥근 모서리
