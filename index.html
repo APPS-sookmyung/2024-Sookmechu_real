@@ -309,13 +309,6 @@
             localStorage.setItem('toEatList', JSON.stringify(items));
         }
 
-        function showCoords(event) {
-            const img = event.target;
-            const rect = img.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            alert("X: " + x + ", Y: " + y);
-        }
     </script>
 </body>
 </html>
