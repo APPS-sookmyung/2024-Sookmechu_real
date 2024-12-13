@@ -5,54 +5,181 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 기록</title>
     <style>
+        /* 전체적인 색상, 폰트 스타일 */
         body {
             font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
+        
+        /* 헤더 스타일 */
+        .header {
+            background-color:rgb(38, 75, 155);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 24px;
+        }
+        .header img {
+            width: 80px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 네비게이션 메뉴 */
+        .nav-menu {
+            background-color: rgb(38, 75, 155);
+            display: flex;
+            justify-content: flex-end; /* 오른쪽 정렬 */
+            padding-right: 40px;
+            padding-bottom: 20px;
+            
+        }
+        .nav-menu a {
+            color: #ffffff;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        /* 게시글 폼 */
+        
         #postForm {
-            margin-bottom: 20px;
+            background-color: #ffffff;
+            padding: 80px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            margin: 20px auto;
         }
-        .post {
-            border: 1px solid #ccc;
+        #postForm input[type="text"],
+        #postForm textarea,
+        #postForm input[type="file"] {
+            width: 100%;
             padding: 10px;
-            margin-bottom: 10px;
-            position: relative;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
         }
-        .buttons {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
+
+        /* 버튼 스타일 */
+        #postForm button[type="submit"],
         .buttons button {
-            margin-left: 5px;
+            margin-right: 10px; /* 버튼 사이 간격 추가 */
+            background-color: rgb(38, 75, 155);
+            color: white;
+            padding: 6px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        #postForm button[type="submit"]:hover,
+        .buttons button:hover {
+            background-color:rgb(27, 18, 128);;
+        }
+        /* 포스트를 감싸는 영역 스타일 */
+        #posts {
+            background-color: #e3f2fd; /* 파란색 배경 */
+            padding: 20px 0;
+            display: flex; /* Flexbox로 변경 */
+            flex-wrap: wrap; /* 여러 줄에 걸쳐 배치 가능 */
+            justify-content: center; /* 가운데 정렬 */
+            gap: 20px; /* 포스트 간격 */
+        }
+        .form-container {
+            background-color: #e3f2fd; /* 파란색 배경 */
+            padding: 20px; /* 여백 추가 */
+            border-radius: 15px; /* 둥글게 처리 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            margin-bottom: 20px; /* 아래쪽 여백 */
+            margin-top: 30px;
+        }
+
+
+        /* 게시글 스타일 */
+        .post {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 500px;
+            max-width: 500px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .post h3 {
+            font-size: 20px;
+            margin-top: 0;
         }
         .post img {
             max-width: 100%;
             height: auto;
-            display: block;
+            border-radius: 5px;
             margin-top: 10px;
         }
+        
+        /* 즐겨찾기 색상 변경 */
         .favorite {
-            color: red;
+            border-color: #f39c12;
+            background-color: #fcf3cf;
         }
-        .edit-form {
-            display: none;
-            border: 1px solid #ccc;
+
+        /* 검색 창 스타일 */
+        #searchInput {
+            width: 90%;
+            max-width: 500px;
             padding: 10px;
-            margin-bottom: 10px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        .footer {
+            background-color: rgb(38, 75, 155);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>나의 기록</h1>
-    <form id="postForm">
-        <input type="text" id="postTitle" placeholder="제목을 입력하세요"><br><br>
-        <textarea id="postContent" rows="4" cols="50" placeholder="내용을 입력하세요"></textarea><br><br>
-        <input type="file" id="postImage"><br><br>
-        <button type="submit">글 올리기</button>
-    </form>
-    <input type="text" id="searchInput" placeholder="검색어를 입력하세요" onkeyup="searchPosts()">
-    <div id="posts"></div>
+    <header class="header">
+        <h1>나의 기록</h1>
+        <img src="/database/img/song.png" alt="눈송이">
+    </header>
 
+    <nav class="nav-menu">
+        <a href="home.html">HOME</a>
+    </nav>
+
+    <div class="form-container">
+        <form id="postForm">
+            <input type="text" id="postTitle" placeholder="제목을 입력하세요">
+            <textarea id="postContent" rows="4" placeholder="내용을 입력하세요"></textarea>
+            <input type="file" id="postImage">
+            <button type="submit">글 올리기</button>
+        </form>
+    </div>
+
+    <input type="text" id="searchInput" placeholder="검색어를 입력하세요" onkeyup="searchPosts()">
+
+    <div id="posts"></div>
+    <footer class="footer">
+        <p>Copyright © SookmechuReal. All Rights Reserved.</p>
+    </footer>
+    
     <script>
         let posts = [];
 
@@ -126,6 +253,7 @@
                 // Edit form
                 const editForm = document.createElement('div');
                 editForm.className = 'edit-form';
+                editForm.style.display = 'none'; // 기본적으로 숨김
                 editForm.innerHTML = `
                     <input type="text" id="editTitle-${index}" placeholder="제목을 입력하세요" value="${post.title}"><br><br>
                     <textarea id="editContent-${index}" rows="4" cols="50" placeholder="내용을 입력하세요">${post.content}</textarea><br><br>

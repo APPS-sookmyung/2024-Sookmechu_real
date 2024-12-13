@@ -1,40 +1,314 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>숙메추real 페이지</title>
+    <title>Home</title>
     <style>
         body {
-            background-color: rgb(27, 18, 128); /* 푸른 배경 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        a {
-            font-size: 2em;
             color: white;
-            text-decoration: none;
-            font-weight: bold;
+            margin: 0;
+            padding: 0;
         }
-        a:hover {
-            text-decoration: underline;
+        .header {
+            background-color: rgb(38, 75, 155);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 24px;
+            padding-left: 15px;
         }
-        img {
-            width: 80px;
+        .header img {
+            width: 100px;
             max-width: 100%;
             height: auto;
         }
+        .nav-menu {
+            background-color: rgb(38, 75, 155);
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .nav-menu a {
+            color: white;
+            margin-left: 20px;
+            padding-right: 30px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        .nav-menu a:hover {
+             background-color: rgb(38, 75, 155);;
+        }
+        .to-eat-list-header {
+            display: flex;
+            align-items: center; /* 세로 가운데 정렬 */
+        }
 
-    
+        .to-eat-list-header img {
+            margin-right: 5px; /* 이미지와 제목 사이 여백 */
+            width: 200px;
+            max-width: 100%;
+            height: 50px;
+            width: 50px;
+        }
 
+        .body-content {
+            display: flex;
+            flex-direction: row;
+            background-color: #ffffff;
+            color: #ffffff;
+            flex: 1;
+        }
+        .map-content {
+            display: flex;
+            justify-content: center; /* 가로 중앙 정렬 */
+            align-items: center; /* 세로 중앙 정렬 (필요에 따라 적용) */
+            padding: 1rem;
+            background-color: white;
+            flex: 1;
+            background-color: #e3f2fd;
+        }
+
+        .map-content img {
+            max-width: 100%;
+            width: 1000px;
+            height: auto; /* 이미지 비율 유지 */
+        }
+        /* To eat list를 가로로 배치 */
+        .to-eat-list-container {
+            background-color: white; /* 기존 파란 배경 */
+            padding: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .to-eat-list-inner {
+            background-color: #ffffff; /* 흰색 배경 */
+            padding: 20px;
+            border-radius: 15px; /* 둥근 모서리 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+            color: black;
+            width: 100%;
+            border: 2px solid black; /* 흰색 2px 테두리 추가 */
+        }
+
+        .to-eat-list-container input, 
+        .to-eat-list-container button {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .to-eat-list-container ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* 세로로 배치 */
+        }
+        .to-eat-list-container li {
+            margin-bottom: 10px;
+        }
+        .to-eat-list-container li button {
+            margin-left: 5px;
+            margin-top: 5px;
+        }
+        .to-eat-list-container img:hover {
+            transform: scale(1.2); /* 크기 확대 */
+            transition: transform 0.2s; /* 부드러운 전환 */
+        }
+        #add-item-button {
+            width: 60px; /* 버튼 이미지 크기 */
+            height: auto; /* 비율 유지 */
+            cursor: pointer; /* 클릭 가능 */
+            transition: transform 0.2s; /* 부드러운 확대 효과 */
+        }
+
+        #add-item-button:hover {
+            transform: scale(1.2); /* 버튼 이미지 확대 */
+        }
+
+        .footer {
+            background-color: rgb(38, 75, 155);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-    <a href="/database/home.html" target="_blank">숙메추real</a> <!-- 원하는 페이지 링크로 변경 -->
-    <img src="/database/img/song1-removebg-preview (1).png" alt="눈송이">
+    <header class="header">
+        <h1>숙메추real</h1>
+        <img src="database/img/snow.png" alt="눈송이">
+    </header>
+    <nav class="nav-menu">
+        <div id="random-food">
+            나는 오늘 <span id="random-food_item" style="border-bottom: 2px solid white; padding: 0 30px;"></span> 먹을까
+            <button onclick="generateRandomFood()">음식 추천받기</button>
+        </div>
     
+        <div class="menu-item" style="position: relative">
+            <a href="list.html">나의 기록</a>
+        </div>
+    </nav>
+
+    <!-- To eat list를 메뉴 아래 가로로 배치 -->
+    <div class="to-eat-list-container">
+        <div class="to-eat-list-inner">
+            <div class="to-eat-list-header">
+                <img src="/database/img/toeat.png" alt="계란 이미지">
+                <h2>To eat list</h2>
+            </div>
+            <input type="text" id="new-item" placeholder="음식 추가">
+            <img 
+                id="add-item-button" 
+                src="/database/img/chicken1.png" 
+                alt="추가 버튼" 
+                onclick="addItem()" 
+                style="width: 40px; cursor: pointer;">
+            <ul id="item-list"></ul>
+        </div>
+    </div>
+
+    <div class="body-content">
+        <div class="map-content">
+            <img src="/database/img/map.jpg" alt="숙대맛집 지도" usemap="#map" onclick="showCoords(event)">
+            <map name="map">
+                <area shape="rect" coords="300,11,418,33" href="/database/ludabread.html" alt="ludabread">
+                <area shape="rect" coords="300,55,412,81" href="/database/chungpadong.html" alt="chungpadongcoffee">
+                <area shape="rect" coords="310,99,404,120" href="/database/podon.html" alt="podon">
+                <area shape="rect" coords="338,144,406,166" href="/database/cerabi.html" alt="cerabi">
+                <area shape="rect" coords="348,197,413,215" href="/database/madonna.html" alt="madonna">
+                <area shape="rect" coords="326,262,414,284" href="/database/bbarbong.html" alt="bbarbong">
+                <area shape="rect" coords="342,308,408,329" href="/database/arirang.html" alt="arirang">
+                <area shape="rect" coords="329,358,416,384" href="/database/bonsol.html" alt="bonsol">
+                <area shape="rect" coords="348,403,415,427" href="/database/gossine.html" alt="gossine">
+                <area shape="rect" coords="8,524,72,543" href="/database/ilmio.html" alt="ilmio">
+                <area shape="rect" coords="87,520,174,572" href="/database/monsterplace.html" alt="monsterplace">
+                <area shape="rect" coords="178,514,288,536" href="/database/witheggbread.html" alt="witheggbread">
+                <area shape="rect" coords="331,521,423,543" href="/database/riddoriddo.html" alt="riddoriddo">
+                <area shape="rect" coords="300,557,432,580" href="/database/rasacheon.html" alt="rasacheon">
+                <area shape="rect" coords="366,593,427,610" href="/database/misterkatsu.html" alt="misterkatsu">
+                <area shape="rect" coords="357,630,424,648" href="/database/ddowaddo.html" alt="ddowaddo">
+                <area shape="rect" coords="22,752,108,776" href="/database/sookdaesoban.html" alt="sookdaesoban">
+                <area shape="rect" coords="254,855,369,877" href="/database/masiandbasi.html" alt="masianbasi">
+                <area shape="rect" coords="122,951,209,972" href="/database/ginjaryoko.html" alt="ginjaryoko">
+                <area shape="rect" coords="63,997,128,1018" href="/database/honggobchang.html" alt="honggobchang">
+                <area shape="rect" coords="292,965,357,987" href="/database/takobi.html" alt="takobi">
+                <area shape="rect" coords="222,1007,334,1026" href="/database/wafflehouse.html" alt="wafflehouse">
+                <area shape="rect" coords="196,1135,308,1155" href="/database/aboutshabu.html" alt="aboutshabu">
+                <area shape="rect" coords="27,1139,72,1161" href="/database/alchon.html" alt="alchon">
+                <area shape="rect" coords="28,1264,120,1288" href="/database/smalltokyo.html" alt="smalltokyo">
+                <area shape="rect" coords="148,1261,281,1285" href="/database/sinmui.html" alt="sinmui">
+                <area shape="rect" coords="872,86,919,109" href="/database/angkko.html" alt="angkko">
+                <area shape="rect" coords="510,103,574,122" href="/database/dalboggi.html" alt="dalboggi">
+                <area shape="rect" coords="514,140,609,165" href="/database/ddingdongwaffle.html" alt="ddingdongwaffle">
+                <area shape="rect" coords="515,184,602,202" href="/database/myoyakcafe.html" alt="myoyakcafe">
+                <area shape="rect" coords="518,129,584,243" href="/database/brewda.html" alt="brewda">
+                <area shape="rect" coords="516,254,604,276" href="/database/nerdcoffee.html" alt="nerdcoffee">
+                <area shape="rect" coords="515,294,578,314" href="/database/porime.html" alt="porime">
+                <area shape="rect" coords="514,330,652,353" href="/database/hangbokeunganjangbab.html" alt="hangbokeunganjangbab">
+                <area shape="rect" coords="518,370,608,390" href="/database/tanghwacungpu.html" alt="tanghwacungpu">
+                <area shape="rect" coords="620,456,687,478" href="/database/salady.html" alt="salady">
+                <area shape="rect" coords="702,478,792,501" href="/database/sinmaramyungga.html" alt="maramyungga">
+                <area shape="rect" coords="840,486,936,510" href="/database/euluicoffee.html" alt="euluicoffee">
+                <area shape="rect" coords="687,563,773,584" href="/database/guimadang.html" alt="guimadang">
+                <area shape="rect" coords="779,585,841,636" href="/database/necono.html" alt="necono">
+                <area shape="rect" coords="906,606,994,631" href="/database/chungpamansion.html" alt="chungpamansion">
+                <area shape="rect" coords="662,611,683,633" href="/database/jung.html" alt="jung">
+                <area shape="rect" coords="627,652,691,705" href="/database/hangbokhanddeokjip.html" alt="hangbokhanddeokjip">
+                <area shape="rect" coords="770,693,830,715" href="/database/asap.html" alt="asap">
+                <area shape="rect" coords="650,845,694,868" href="/database/duggi.html" alt="duggi">
+                <area shape="rect" coords="799,1058,841,1081" href="/database/mongso.html" alt="mongso">
+                <area shape="rect" coords="895,1009,960,1063" href="/database/mannakalguksu.html" alt="mannakalguksu">
+                <area shape="rect" coords="488,952,576,1007" href="/database/maljukgury.html" alt="maljukguri">
+                <area shape="rect" coords="458,1039,497,1062" href="/database/beeil.html" alt="beeil">
+                <area shape="rect" coords="430,1089,519,1109" href="/database/benares.html" alt="benares">
+                <area shape="rect" coords="425,1124,492,1141" href="/database/ggachine.html" alt="kkachine">
+                <area shape="rect" coords="411,1181,475,1201" href="/database/wowsinnaeddeok copy.html" alt="sinnaeddeok">
+                <area shape="rect" coords="803,1233,848,1254" href="/database/babddae.html" alt="babddae">
+            </map>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>Copyright © SookmechuReal. All Rights Reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", loadItems);
+
+        function generateRandomFood() {
+            const foodList = ["루다 브레드", "청파동커피", "포36거리", "마돈나", "쎄라비", "아리랑", "빨봉분식", "샐러디", "본솔커피", "고씨네", "일미오", "몬스터플레이스", "위드달걀빵", "리또리또", "라사천마라탕", "미스터카츠", "또와또", "숙대소반", "베라", "마시앤바시", "긴자료코", "홍곱창", "타코비", "와플하우스", "어바웃샤브", "알촌", "신머이쌀국수", "작은도쿄", "달볶이", "띵동와플", "묘약카페", "브루다", "너드커피", "탕화쿵푸" ,"포라임", "행복은간장밥", "마라명가", "을의 커피", "봉구스", "이삭", "피굽남피자", "스타벅스", "구이마당", "네코노스시", "피자보이시나", "청파맨션", "정", "행복한 떡집", "ASAP", "프랭크버거", "서브웨이", "두끼", "만나칼국수", "몽소", "말죽거리 꽈배기", "비일", "베나레스", "까치네", "신내떡", "밥때"];
+            
+            const randomFood = foodList[Math.floor(Math.random() * foodList.length)];
+            
+            document.getElementById("random-food_item").innerText = randomFood;
+        }
+        function addItem() {
+            const newItem = document.getElementById('new-item').value;
+            if (newItem.trim() !== "") {
+                const li = document.createElement('li');
+                
+                li.innerText = newItem;
+                li.appendChild(createDeleteButton());
+                document.getElementById('item-list').appendChild(li);
+                saveItem(newItem);  // 로컬 스토리지에 항목 저장
+                document.getElementById('new-item').value = '';
+            }
+        }
+
+        function createDeleteButton() {
+            const deleteImg = document.createElement('img');
+            deleteImg.src = '/database/img/egg2.png'; // 병아리 이미지 경로
+            deleteImg.alt = 'Delete';
+            deleteImg.style.width = '40px'; // 이미지 크기 설정
+            deleteImg.style.marginTop = '10px'; // 이미지 아래로 이동
+            deleteImg.style.cursor = 'pointer'; // 클릭 가능한 이미지로 설정
+            deleteImg.onclick = function () {
+                const li = this.parentElement;
+                const itemText = li.innerText.replace('Delete', '').trim();
+                removeItem(itemText); // 로컬 스토리지에서 항목 삭제
+                li.parentElement.removeChild(li);
+            };
+            return deleteImg;
+        }
+
+
+
+        // 추가 버튼 스타일 변경
+        const addButton = document.querySelector('button[onclick="addItem()"]');
+        addButton.style.backgroundColor = 'rgb(27, 18, 128)';  // 빨간색 추가 버튼
+        addButton.style.color = 'white';  // 글자 색은 흰색
+        addButton.style.border = 'none';  // 테두리 제거
+        addButton.style.borderRadius = '8px';  // 둥근 모서리
+        addButton.style.padding = '5px 10px';  // 버튼 패딩
+        addButton.innerText = 'Add';  // 텍스트 변경
+        // 로컬 스토리지에 항목 저장
+        function saveItem(item) {
+            let items = JSON.parse(localStorage.getItem('toEatList')) || [];
+            items.push(item);
+            localStorage.setItem('toEatList', JSON.stringify(items));
+        }
+
+        // 로컬 스토리지에서 항목 불러오기
+        function loadItems() {
+            const items = JSON.parse(localStorage.getItem('toEatList')) || [];
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.innerText = item;
+                li.appendChild(createDeleteButton());
+                document.getElementById('item-list').appendChild(li);
+            });
+        }
+
+        // 로컬 스토리지에서 항목 삭제
+        function removeItem(item) {
+            let items = JSON.parse(localStorage.getItem('toEatList')) || [];
+            items = items.filter(i => i !== item);
+            localStorage.setItem('toEatList', JSON.stringify(items));
+        }
+
+    </script>
 </body>
 </html>
